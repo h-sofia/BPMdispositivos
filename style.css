@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* CSS Document */
+
+:root{
+
+	--primary-rojo: #E04838;
+	--secondary-cyan: #25B899;
+	--bg-blanco: #F1F1F1;
+	--font-negro: #000000; 
+}
+
+div{
+	color: var(--font-title-example);
+}
