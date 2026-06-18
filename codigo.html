@@ -1,106 +1,146 @@
-<html lang="en">
-
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BPM</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BPM | Código</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+<body data-page="codigo">
+  <section class="pull-to-refresh">
+    <div class="spinner-border" role="status"></div>
+  </section>
 
-<body>
+  <main class="container-fluid pantalla">
+    <section class="contenido codigo-contenido">
+      <a href="recuperar.html" class="volver" aria-label="Volver">←</a>
 
-    <div class="container-fluid pantalla">
+      <h1 class="titulo-recuperar titulo-codigo">Código de verificación</h1>
+      <p class="texto-recuperar">Ingresa el código enviado a tu correo.</p>
 
-        <div class="contenido">
-
-            <a href="recuperar.html" class="volver">
-                ←
-            </a>
-
-            <div class="change text-center">
-
-                <input class="code" type="text" maxlength="1" minlength="1">
-
-                <input class="code" type="text" maxlength="1" minlength="1">
-
-                <input class="code" type="text" maxlength="1" minlength="1">
-
-                <input class="code" type="text" maxlength="1" minlength="1">
-
-            </div>
-
-            <div class="teclado">
-
-                <div class="fila">
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                </div>
-
-                <div class="fila">
-                    <button>4</button>
-                    <button>5</button>
-                    <button>6</button>
-                </div>
-
-                <div class="fila">
-                    <button>7</button>
-                    <button>8</button>
-                    <button>9</button>
-                </div>
-
-                <div class="fila">
-                    <button>0</button>
-                </div>
-
-            </div>
-
+      <form id="codigoForm" novalidate>
+        <div class="change text-center">
+          <input class="code" type="text" maxlength="1" minlength="1" inputmode="numeric" aria-label="code1">
+          <input class="code" type="text" maxlength="1" minlength="1" inputmode="numeric" aria-label="code2">
+          <input class="code" type="text" maxlength="1" minlength="1" inputmode="numeric" aria-label="code3">
+          <input class="code" type="text" maxlength="1" minlength="1" inputmode="numeric" aria-label="code4">
         </div>
 
-    </div>
+        <p class="mensaje" id="codigoMessage" aria-live="polite"></p>
 
-    <script>
+        <div class="teclado" aria-label="Teclado numérico">
+          <div class="fila">
+            <button type="button" data-number="1">1</button>
+            <button type="button" data-number="2">2</button>
+            <button type="button" data-number="3">3</button>
+          </div>
+          <div class="fila">
+            <button type="button" data-number="4">4</button>
+            <button type="button" data-number="5">5</button>
+            <button type="button" data-number="6">6</button>
+          </div>
+          <div class="fila">
+            <button type="button" data-number="7">7</button>
+            <button type="button" data-number="8">8</button>
+            <button type="button" data-number="9">9</button>
+          </div>
+          <div class="fila">
+            <button type="button" data-action="delete">⌫</button>
+            <button type="button" data-number="0">0</button>
+            <button type="submit">OK</button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </main>
 
-        var container =
-            document.getElementsByClassName("change")[0];
+  <script>
+    const pullToRefresh = document.querySelector('.pull-to-refresh');
+    let touchstartY = 0;
 
-        container.onkeyup = function (e) {
-            var target = e.srcElement;
+    document.addEventListener('touchstart', function(e) {
+      touchstartY = e.touches[0].clientY;
+    });
 
-            var maxLength =
-                parseInt(
-                    target.attributes["maxlength"].value,
-                    10
-                );
+    document.addEventListener('touchmove', function(e) {
+      const touchY = e.touches[0].clientY;
+      const touchDiff = touchY - touchstartY;
+      if (touchDiff > 0 && window.scrollY === 0) {
+        pullToRefresh.classList.add('seen');
+        e.preventDefault();
+      }
+    });
 
-            var myLength =
-                target.value.length;
+    document.addEventListener('touchend', function() {
+      if (pullToRefresh.classList.contains('seen')) {
+        pullToRefresh.classList.remove('seen');
+        location.reload();
+      }
+    });
 
-            if (myLength >= maxLength) {
-                var next = target;
+    var container = document.getElementsByClassName("change")[0];
 
-                while (next = next.nextElementSibling) {
-                    if (next == null)
-                        break;
+    container.onkeyup = function(e) {
+      var target = e.srcElement || e.target;
+      var maxLength = parseInt(target.attributes["maxlength"].value, 10);
+      var myLength = target.value.length;
 
-                    if (next.tagName.toLowerCase()
-                        == "input") {
-                        next.focus();
-                        break;
-                    }
-                }
-            }
+      if (myLength >= maxLength) {
+        var next = target;
+
+        while (next = next.nextElementSibling) {
+          if (next == null)
+            break;
+
+          if (next.tagName.toLowerCase() == "input") {
+            next.focus();
+            break;
+          }
         }
+      }
+    };
 
-    </script>
+    const botones = document.querySelectorAll('[data-number]');
+    const inputs = document.querySelectorAll('.code');
 
+    botones.forEach(function(boton) {
+      boton.onclick = function() {
+        for (let i = 0; i < inputs.length; i++) {
+          if (inputs[i].value === '') {
+            inputs[i].value = boton.dataset.number;
+            inputs[i].focus();
+            break;
+          }
+        }
+      };
+    });
+
+    document.querySelector('[data-action="delete"]').onclick = function() {
+      for (let i = inputs.length - 1; i >= 0; i--) {
+        if (inputs[i].value !== '') {
+          inputs[i].value = '';
+          inputs[i].focus();
+          break;
+        }
+      }
+    };
+
+    document.getElementById('codigoForm').onsubmit = function(e) {
+      e.preventDefault();
+
+      let codigo = '';
+      const mensaje = document.getElementById('codigoMessage');
+
+      for (let i = 0; i < inputs.length; i++) {
+        codigo += inputs[i].value;
+      }
+
+      if (codigo.length < 4) {
+        mensaje.innerHTML = 'Completa los 4 dígitos.';
+      } else {
+        window.location.href = 'reset.html';
+      }
+    };
+  </script>
 </body>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-    crossorigin="anonymous"></script>
-</body>
-
 </html>

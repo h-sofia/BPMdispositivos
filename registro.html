@@ -1,60 +1,83 @@
-<html lang="en">
-
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BPM</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BPM | Registro</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+<body data-page="registro">
+  <section class="pull-to-refresh">
+    <div class="spinner-border" role="status"></div>
+  </section>
 
-<body>
+  <main class="container-fluid pantalla auth-page">
+    <section class="contenido">
+      <img src="img/logo.png" class="logo-pequeno" alt="logo BPM">
+      <h2 class="titulo-bpm">BPM</h2>
 
-    <div class="container-fluid pantalla">
+      <form id="registroForm" novalidate>
+        <label for="registroCorreo">Correo</label>
+        <input type="email" id="registroCorreo" class="form-control custom-input" autocomplete="email">
 
-        <div class="contenido">
+        <label for="registroUsuario">Nombre de usuario</label>
+        <input type="text" id="registroUsuario" class="form-control custom-input" autocomplete="username">
 
-            <img src="img/logo.png" class="logo-pequeno">
+        <label for="registroPassword">Contraseña</label>
+        <input type="password" id="registroPassword" class="form-control custom-input" autocomplete="new-password">
 
-            <h2 class="titulo-bpm">BPM</h2>
+        <p class="mensaje" id="registroMessage" aria-live="polite"></p>
 
-            <form>
-
-                <label>CORREO</label>
-                <input type="email" class="form-control custom-input">
-
-                <label>NOMBRE DE USUARIO</label>
-                <input type="text" class="form-control custom-input">
-
-                <label>CONTRASEÑA</label>
-                <input type="password" class="form-control custom-input">
-
-                <div class="text-center">
-
-                    <button class="btn btn-bpm">
-                        Registrarse
-                    </button>
-
-                </div>
-
-                <div class="text-center mt-3">
-
-                    <a href="login.html" class="link-bpm">
-                        Iniciar sesión
-                    </a>
-
-                </div>
-
-            </form>
-
+        <div class="text-center">
+          <button class="btn btn-bpm" type="submit">Registrarse</button>
         </div>
 
-    </div>
+        <div class="text-center mt-3">
+          <a href="logIn.html" class="link-bpm">Iniciar sesión</a>
+        </div>
+      </form>
+    </section>
+  </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+  <script>
+    const pullToRefresh = document.querySelector('.pull-to-refresh');
+    let touchstartY = 0;
+
+    document.addEventListener('touchstart', function(e) {
+      touchstartY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      const touchY = e.touches[0].clientY;
+      const touchDiff = touchY - touchstartY;
+      if (touchDiff > 0 && window.scrollY === 0) {
+        pullToRefresh.classList.add('seen');
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('touchend', function() {
+      if (pullToRefresh.classList.contains('seen')) {
+        pullToRefresh.classList.remove('seen');
+        location.reload();
+      }
+    });
+
+    document.getElementById('registroForm').onsubmit = function(e) {
+      e.preventDefault();
+
+      const correo = document.getElementById('registroCorreo').value;
+      const usuario = document.getElementById('registroUsuario').value;
+      const password = document.getElementById('registroPassword').value;
+      const mensaje = document.getElementById('registroMessage');
+
+      if (correo === '' || usuario === '' || password === '') {
+        mensaje.innerHTML = 'Completa todos los campos.';
+      } else {
+        alert('Registro exitoso');
+        window.location.href = 'logIn.html';
+      }
+    };
+  </script>
 </body>
-
 </html>

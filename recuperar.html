@@ -1,52 +1,75 @@
-<html lang="en">
-
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BPM</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BPM | Recuperar contraseña</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+<body data-page="recuperar">
+  <section class="pull-to-refresh">
+    <div class="spinner-border" role="status"></div>
+  </section>
 
-<body>
+  <main class="container-fluid pantalla">
+    <section class="contenido recuperar-contenido">
+      <a href="logIn.html" class="volver" aria-label="Volver">←</a>
 
-    <div class="container-fluid pantalla">
+      <h1 class="titulo-recuperar">Restablecer contraseña</h1>
 
-        <div class="contenido">
+      <p class="texto-recuperar">
+        Dinos el correo electrónico con el que te registraste y te mandaremos un código para restaurar tu contraseña.
+      </p>
 
-            <a href="login.html" class="volver">
-                ←
-            </a>
+      <form id="recuperarForm" novalidate>
+        <label for="recuperarCorreo" class="sr-only">Correo electrónico</label>
+        <input type="email" id="recuperarCorreo" class="form-control custom-input" autocomplete="email">
 
-            <h1 class="titulo-recuperar">
-                Restablecer contraseña
-            </h1>
+        <p class="mensaje" id="recuperarMessage" aria-live="polite"></p>
 
-            <p class="texto-recuperar">
-
-                Dinos el correo electrónico con el que te registraste y te mandaremos un código para restaurar tu
-                contraseña.
-
-            </p>
-
-            <input type="email" class="form-control custom-input">
-
-            <div class="text-center">
-
-                <button class="btn btn-bpm">
-                    Solicitar código
-                </button>
-
-            </div>
-
+        <div class="text-center">
+          <button class="btn btn-bpm" type="submit">Solicitar código</button>
         </div>
+      </form>
+    </section>
+  </main>
 
-    </div>
+  <script>
+    const pullToRefresh = document.querySelector('.pull-to-refresh');
+    let touchstartY = 0;
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+    document.addEventListener('touchstart', function(e) {
+      touchstartY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      const touchY = e.touches[0].clientY;
+      const touchDiff = touchY - touchstartY;
+      if (touchDiff > 0 && window.scrollY === 0) {
+        pullToRefresh.classList.add('seen');
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('touchend', function() {
+      if (pullToRefresh.classList.contains('seen')) {
+        pullToRefresh.classList.remove('seen');
+        location.reload();
+      }
+    });
+
+    document.getElementById('recuperarForm').onsubmit = function(e) {
+      e.preventDefault();
+
+      const correo = document.getElementById('recuperarCorreo').value;
+      const mensaje = document.getElementById('recuperarMessage');
+
+      if (correo === '') {
+        mensaje.innerHTML = 'Escribe tu correo electrónico.';
+      } else {
+        window.location.href = 'codigo.html';
+      }
+    };
+  </script>
 </body>
-
 </html>

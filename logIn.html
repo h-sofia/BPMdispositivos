@@ -1,55 +1,81 @@
-<html lang="en">
-
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BPM</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BPM | Iniciar sesión</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+<body data-page="login">
+  <section class="pull-to-refresh">
+    <div class="spinner-border" role="status"></div>
+  </section>
 
-<body>
+  <main class="container-fluid pantalla auth-page">
+    <section class="contenido">
+      <img src="img/logo.png" class="logo" alt="logo BPM">
+      <h1 class="marca">BPM</h1>
 
-    <div class="container-fluid pantalla">
+      <form id="loginForm" novalidate>
+        <label for="loginUser">Correo o nombre de usuario</label>
+        <input type="text" id="loginUser" class="form-control custom-input" autocomplete="username">
 
-        <div class="contenido">
+        <label for="loginPassword">Contraseña</label>
+        <input type="password" id="loginPassword" class="form-control custom-input" autocomplete="current-password">
 
-            <img src="img/logo.png" class="logo" alt="logo">
+        <a href="recuperar.html" class="link-bpm link-left">¿Olvidaste tu contraseña?</a>
 
-            <h1 class="marca">BPM</h1>
+        <p class="mensaje" id="loginMessage" aria-live="polite"></p>
 
-            <form>
-
-                <label>Correo o nombre de usuario</label>
-
-                <input type="text" class="form-control custom-input">
-
-                <label>Contraseña</label>
-
-                <input type="password" class="form-control custom-input">
-
-                <div class="text-center">
-                    <button class="btn btn-bpm">
-                        Iniciar Sesión
-                    </button>
-                </div>
-
-                <div class="text-center mt-4">
-                    <a href="registro.html" class="link-bpm">
-                        Registrarse
-                    </a>
-                </div>
-
-            </form>
-
+        <div class="text-center">
+          <button class="btn btn-bpm" type="submit">Iniciar Sesión</button>
         </div>
 
-    </div>
+        <div class="text-center mt-4">
+          <a href="registro.html" class="link-bpm link-strong">Registrarse</a>
+        </div>
+      </form>
+    </section>
+  </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+  <script>
+    const pullToRefresh = document.querySelector('.pull-to-refresh');
+    let touchstartY = 0;
+
+    document.addEventListener('touchstart', function(e) {
+      touchstartY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      const touchY = e.touches[0].clientY;
+      const touchDiff = touchY - touchstartY;
+      if (touchDiff > 0 && window.scrollY === 0) {
+        pullToRefresh.classList.add('seen');
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('touchend', function() {
+      if (pullToRefresh.classList.contains('seen')) {
+        pullToRefresh.classList.remove('seen');
+        location.reload();
+      }
+    });
+
+    document.getElementById('loginForm').onsubmit = function(e) {
+      e.preventDefault();
+
+      const usuario = document.getElementById('loginUser').value;
+      const password = document.getElementById('loginPassword').value;
+      const mensaje = document.getElementById('loginMessage');
+
+      if (usuario === '' || password === '') {
+        mensaje.innerHTML = 'Completa todos los campos.';
+      } else {
+        mensaje.innerHTML = '';
+        window.location.href = 'home.html';
+      }
+    };
+  </script>
 </body>
-
 </html>

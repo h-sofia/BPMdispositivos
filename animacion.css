@@ -1,0 +1,56 @@
+@charset "utf-8";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.splash {
+  align-items: center;
+  background-color: #e04838;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#icon {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.bpmicon {
+  animation: bpm 2.2s ease-in-out infinite;
+  display: block;
+  max-width: 170px;
+  width: 42vw;
+}
+
+@keyframes bpm {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  18% {
+    transform: scale(1.08) rotate(10deg);
+  }
+
+  36% {
+    transform: scale(0.98) rotate(-8deg);
+  }
+
+  54% {
+    transform: scale(1.12) rotate(6deg);
+  }
+
+  72% {
+    transform: scale(1) rotate(-4deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
