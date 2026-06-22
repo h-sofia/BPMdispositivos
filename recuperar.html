@@ -3,70 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BPM | Recuperar contraseña</title>
-  <link rel="stylesheet" href="style.css">
+  <title>BPM | Recuperar</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body data-page="recuperar">
-  <section class="pull-to-refresh">
-    <div class="spinner-border" role="status"></div>
-  </section>
+<body>
+  <main class="phone">
+    <section class="screen auth-screen active">
+      <a class="back-btn" href="logIn.html">&lt;</a>
+      <div class="auth-content top-content">
+        <img src="img/logo.png" class="auth-logo small" alt="logo BPM">
+        <h2>Restablecer contrase&ntilde;a</h2>
+        <p class="helper-text">Dinos el correo con el que te registraste y te mandaremos un codigo para recuperar tu cuenta.</p>
 
-  <main class="container-fluid pantalla">
-    <section class="contenido recuperar-contenido">
-      <a href="logIn.html" class="volver" aria-label="Volver">←</a>
-
-      <h1 class="titulo-recuperar">Restablecer contraseña</h1>
-
-      <p class="texto-recuperar">
-        Dinos el correo electrónico con el que te registraste y te mandaremos un código para restaurar tu contraseña.
-      </p>
-
-      <form id="recuperarForm" novalidate>
-        <label for="recuperarCorreo" class="sr-only">Correo electrónico</label>
-        <input type="email" id="recuperarCorreo" class="form-control custom-input" autocomplete="email">
-
-        <p class="mensaje" id="recuperarMessage" aria-live="polite"></p>
-
-        <div class="text-center">
-          <button class="btn btn-bpm" type="submit">Solicitar código</button>
-        </div>
-      </form>
+        <form id="recuperarForm">
+          <label for="recuperarCorreo">Correo</label>
+          <input type="email" id="recuperarCorreo" class="input-bpm">
+          <p class="message" id="recuperarMessage"></p>
+          <button class="main-btn" type="submit">Solicitar codigo</button>
+        </form>
+      </div>
     </section>
   </main>
 
   <script>
-    const pullToRefresh = document.querySelector('.pull-to-refresh');
-    let touchstartY = 0;
-
-    document.addEventListener('touchstart', function(e) {
-      touchstartY = e.touches[0].clientY;
-    });
-
-    document.addEventListener('touchmove', function(e) {
-      const touchY = e.touches[0].clientY;
-      const touchDiff = touchY - touchstartY;
-      if (touchDiff > 0 && window.scrollY === 0) {
-        pullToRefresh.classList.add('seen');
-        e.preventDefault();
-      }
-    });
-
-    document.addEventListener('touchend', function() {
-      if (pullToRefresh.classList.contains('seen')) {
-        pullToRefresh.classList.remove('seen');
-        location.reload();
-      }
-    });
-
     document.getElementById('recuperarForm').onsubmit = function(e) {
       e.preventDefault();
-
-      const correo = document.getElementById('recuperarCorreo').value;
-      const mensaje = document.getElementById('recuperarMessage');
+      var correo = document.getElementById('recuperarCorreo').value;
+      var mensaje = document.getElementById('recuperarMessage');
 
       if (correo === '') {
-        mensaje.innerHTML = 'Escribe tu correo electrónico.';
+        mensaje.innerHTML = 'Escribe tu correo.';
       } else {
+        mensaje.innerHTML = '';
         window.location.href = 'codigo.html';
       }
     };

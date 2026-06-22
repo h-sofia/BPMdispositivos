@@ -4,72 +4,45 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BPM | Registro</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body data-page="registro">
-  <section class="pull-to-refresh">
-    <div class="spinner-border" role="status"></div>
-  </section>
+<body>
+  <main class="phone">
+    <section class="pull-to-refresh">
+      <div class="spinner-border" role="status"></div>
+    </section>
 
-  <main class="container-fluid pantalla auth-page">
-    <section class="contenido">
-      <img src="img/logo.png" class="logo-pequeno" alt="logo BPM">
-      <h2 class="titulo-bpm">BPM</h2>
+    <section class="screen auth-screen active">
+      <a class="back-btn" href="logIn.html">&lt;</a>
+      <div class="auth-content">
+        <img src="img/logo.png" class="auth-logo small" alt="logo BPM">
+        <h2>BPM</h2>
 
-      <form id="registroForm" novalidate>
-        <label for="registroCorreo">Correo</label>
-        <input type="email" id="registroCorreo" class="form-control custom-input" autocomplete="email">
+        <form id="registroForm">
+          <label for="registroCorreo">Correo</label>
+          <input type="email" id="registroCorreo" class="input-bpm">
 
-        <label for="registroUsuario">Nombre de usuario</label>
-        <input type="text" id="registroUsuario" class="form-control custom-input" autocomplete="username">
+          <label for="registroUsuario">Nombre de usuario</label>
+          <input type="text" id="registroUsuario" class="input-bpm">
 
-        <label for="registroPassword">Contraseña</label>
-        <input type="password" id="registroPassword" class="form-control custom-input" autocomplete="new-password">
+          <label for="registroPassword">Contrase&ntilde;a</label>
+          <input type="password" id="registroPassword" class="input-bpm">
 
-        <p class="mensaje" id="registroMessage" aria-live="polite"></p>
-
-        <div class="text-center">
-          <button class="btn btn-bpm" type="submit">Registrarse</button>
-        </div>
-
-        <div class="text-center mt-3">
-          <a href="logIn.html" class="link-bpm">Iniciar sesión</a>
-        </div>
-      </form>
+          <p class="message" id="registroMessage"></p>
+          <button class="main-btn" type="submit">Registrarse</button>
+          <a class="simple-link big-link" href="logIn.html">Iniciar sesi&oacute;n</a>
+        </form>
+      </div>
     </section>
   </main>
 
   <script>
-    const pullToRefresh = document.querySelector('.pull-to-refresh');
-    let touchstartY = 0;
-
-    document.addEventListener('touchstart', function(e) {
-      touchstartY = e.touches[0].clientY;
-    });
-
-    document.addEventListener('touchmove', function(e) {
-      const touchY = e.touches[0].clientY;
-      const touchDiff = touchY - touchstartY;
-      if (touchDiff > 0 && window.scrollY === 0) {
-        pullToRefresh.classList.add('seen');
-        e.preventDefault();
-      }
-    });
-
-    document.addEventListener('touchend', function() {
-      if (pullToRefresh.classList.contains('seen')) {
-        pullToRefresh.classList.remove('seen');
-        location.reload();
-      }
-    });
-
     document.getElementById('registroForm').onsubmit = function(e) {
       e.preventDefault();
-
-      const correo = document.getElementById('registroCorreo').value;
-      const usuario = document.getElementById('registroUsuario').value;
-      const password = document.getElementById('registroPassword').value;
-      const mensaje = document.getElementById('registroMessage');
+      var correo = document.getElementById('registroCorreo').value;
+      var usuario = document.getElementById('registroUsuario').value;
+      var password = document.getElementById('registroPassword').value;
+      var mensaje = document.getElementById('registroMessage');
 
       if (correo === '' || usuario === '' || password === '') {
         mensaje.innerHTML = 'Completa todos los campos.';

@@ -3,73 +3,44 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BPM | Nueva contraseña</title>
-  <link rel="stylesheet" href="style.css">
+  <title>BPM | Reset</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body data-page="reset">
-  <section class="pull-to-refresh">
-    <div class="spinner-border" role="status"></div>
-  </section>
+<body>
+  <main class="phone">
+    <section class="screen auth-screen active">
+      <a class="back-btn" href="codigo.html">&lt;</a>
+      <div class="auth-content top-content">
+        <img src="img/logo.png" class="auth-logo small" alt="logo BPM">
+        <h2>Nueva contrase&ntilde;a</h2>
 
-  <main class="container-fluid pantalla">
-    <section class="contenido recuperar-contenido">
-      <a href="codigo.html" class="volver" aria-label="Volver">←</a>
+        <form id="resetForm">
+          <label for="resetPassword">Contrase&ntilde;a</label>
+          <input type="password" id="resetPassword" class="input-bpm">
 
-      <h1 class="titulo-recuperar">Nueva contraseña</h1>
+          <label for="resetConfirm">Confirmaci&oacute;n</label>
+          <input type="password" id="resetConfirm" class="input-bpm">
 
-      <form id="resetForm" novalidate>
-        <label for="nuevaPassword">Contraseña</label>
-        <input type="password" id="nuevaPassword" class="form-control custom-input" autocomplete="new-password">
-
-        <label for="confirmarPassword">Confirmación</label>
-        <input type="password" id="confirmarPassword" class="form-control custom-input" autocomplete="new-password">
-
-        <p class="mensaje" id="resetMessage" aria-live="polite"></p>
-
-        <div class="text-center">
-          <button class="btn btn-bpm" type="submit">Guardar contraseña</button>
-        </div>
-      </form>
+          <p class="message" id="resetMessage"></p>
+          <button class="main-btn" type="submit">Guardar contrase&ntilde;a</button>
+        </form>
+      </div>
     </section>
   </main>
 
   <script>
-    const pullToRefresh = document.querySelector('.pull-to-refresh');
-    let touchstartY = 0;
-
-    document.addEventListener('touchstart', function(e) {
-      touchstartY = e.touches[0].clientY;
-    });
-
-    document.addEventListener('touchmove', function(e) {
-      const touchY = e.touches[0].clientY;
-      const touchDiff = touchY - touchstartY;
-      if (touchDiff > 0 && window.scrollY === 0) {
-        pullToRefresh.classList.add('seen');
-        e.preventDefault();
-      }
-    });
-
-    document.addEventListener('touchend', function() {
-      if (pullToRefresh.classList.contains('seen')) {
-        pullToRefresh.classList.remove('seen');
-        location.reload();
-      }
-    });
-
     document.getElementById('resetForm').onsubmit = function(e) {
       e.preventDefault();
-
-      const password = document.getElementById('nuevaPassword').value;
-      const confirmacion = document.getElementById('confirmarPassword').value;
-      const mensaje = document.getElementById('resetMessage');
+      var password = document.getElementById('resetPassword').value;
+      var confirmacion = document.getElementById('resetConfirm').value;
+      var mensaje = document.getElementById('resetMessage');
 
       if (password === '' || confirmacion === '') {
         mensaje.innerHTML = 'Completa todos los campos.';
       } else if (password !== confirmacion) {
-        mensaje.innerHTML = 'Las contraseñas no coinciden.';
+        mensaje.innerHTML = 'Las contrase&ntilde;as no coinciden.';
       } else {
-        alert('Contraseña guardada');
+        alert('Contrase&ntilde;a actualizada');
         window.location.href = 'logIn.html';
       }
     };

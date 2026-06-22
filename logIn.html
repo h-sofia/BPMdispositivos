@@ -3,38 +3,35 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BPM | Iniciar sesión</title>
-  <link rel="stylesheet" href="style.css">
+  <title>BPM | Iniciar sesion</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body data-page="login">
-  <section class="pull-to-refresh">
-    <div class="spinner-border" role="status"></div>
-  </section>
+<body>
+  <main class="phone">
+    <section class="pull-to-refresh">
+      <div class="spinner-border" role="status"></div>
+    </section>
 
-  <main class="container-fluid pantalla auth-page">
-    <section class="contenido">
-      <img src="img/logo.png" class="logo" alt="logo BPM">
-      <h1 class="marca">BPM</h1>
+    <section class="screen auth-screen active">
+      <div class="auth-content">
+        <img src="img/logo.png" class="auth-logo" alt="logo BPM">
+        <h1>BPM</h1>
 
-      <form id="loginForm" novalidate>
-        <label for="loginUser">Correo o nombre de usuario</label>
-        <input type="text" id="loginUser" class="form-control custom-input" autocomplete="username">
+        <form id="loginForm">
+          <label for="loginUser">Correo o nombre de usuario</label>
+          <input type="text" id="loginUser" class="input-bpm">
 
-        <label for="loginPassword">Contraseña</label>
-        <input type="password" id="loginPassword" class="form-control custom-input" autocomplete="current-password">
+          <label for="loginPassword">Contrase&ntilde;a</label>
+          <input type="password" id="loginPassword" class="input-bpm">
 
-        <a href="recuperar.html" class="link-bpm link-left">¿Olvidaste tu contraseña?</a>
+          <a class="simple-link" href="recuperar.html">&iquest;Olvidaste tu contrase&ntilde;a?</a>
 
-        <p class="mensaje" id="loginMessage" aria-live="polite"></p>
+          <p class="message" id="loginMessage"></p>
 
-        <div class="text-center">
-          <button class="btn btn-bpm" type="submit">Iniciar Sesión</button>
-        </div>
-
-        <div class="text-center mt-4">
-          <a href="registro.html" class="link-bpm link-strong">Registrarse</a>
-        </div>
-      </form>
+          <button class="main-btn" type="submit">Iniciar Sesi&oacute;n</button>
+          <a class="simple-link big-link" href="registro.html">Registrarse</a>
+        </form>
+      </div>
     </section>
   </main>
 
@@ -50,24 +47,23 @@
       const touchY = e.touches[0].clientY;
       const touchDiff = touchY - touchstartY;
       if (touchDiff > 0 && window.scrollY === 0) {
-        pullToRefresh.classList.add('seen');
+        pullToRefresh.classList.add('verse');
         e.preventDefault();
       }
     });
 
     document.addEventListener('touchend', function() {
-      if (pullToRefresh.classList.contains('seen')) {
-        pullToRefresh.classList.remove('seen');
+      if (pullToRefresh.classList.contains('verse')) {
+        pullToRefresh.classList.remove('verse');
         location.reload();
       }
     });
 
     document.getElementById('loginForm').onsubmit = function(e) {
       e.preventDefault();
-
-      const usuario = document.getElementById('loginUser').value;
-      const password = document.getElementById('loginPassword').value;
-      const mensaje = document.getElementById('loginMessage');
+      var usuario = document.getElementById('loginUser').value;
+      var password = document.getElementById('loginPassword').value;
+      var mensaje = document.getElementById('loginMessage');
 
       if (usuario === '' || password === '') {
         mensaje.innerHTML = 'Completa todos los campos.';
