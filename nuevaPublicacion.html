@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BPM | Nueva publicaci&oacute;n</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+  <main class="phone">
+    <section class="pull-to-refresh">
+      <div class="spinner-border" role="status"></div>
+    </section>
+
+    <section class="screen red-screen">
+      <header class="app-header red">
+        <h1 class="page-title">Nueva publicaci&oacute;n</h1>
+        <a class="icon-btn" href="home.html" aria-label="Cerrar">
+          <i class="fa-solid fa-xmark"></i>
+        </a>
+      </header>
+
+      <form class="red-form" id="publicacionForm">
+        <label class="form-label-bpm" for="albumSearch">Album</label>
+        <div class="selected-album" id="selectedAlbum">
+          <img src="img/image 7.png" alt="Halo">
+          <div>
+            <h3>Halo</h3>
+            <p>Tiffany Day</p>
+            <p>Hyperpop - Electronic</p>
+          </div>
+        </div>
+
+        <div class="search-box mt-2">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="albumSearch" aria-label="Buscar album" placeholder="Escribe un album"
+            onkeyup="mostrarSugerencias()">
+        </div>
+
+        <div class="suggestions" id="suggestions">
+          <button class="suggestion" type="button" onclick="elegirAlbum('img/image 7.png', 'Halo', 'Tiffany Day')">
+            <img src="img/image 7.png" alt="Halo">
+            <span><strong>Halo</strong><span>Tiffany Day</span></span>
+          </button>
+          <button class="suggestion" type="button" onclick="elegirAlbum('img/image 8.png', 'Imaginal Disk', 'Magdalena Bay')">
+            <img src="img/image 8.png" alt="Imaginal Disk">
+            <span><strong>Imaginal Disk</strong><span>Magdalena Bay</span></span>
+          </button>
+        </div>
+
+        <label class="form-label-bpm">Calificaci&oacute;n</label>
+        <div class="star-row" id="ratingStars">
+          <button type="button" onclick="calificar(1)"><i class="fa-solid fa-star"></i></button>
+          <button type="button" onclick="calificar(2)"><i class="fa-solid fa-star"></i></button>
+          <button type="button" onclick="calificar(3)"><i class="fa-solid fa-star"></i></button>
+          <button type="button" onclick="calificar(4)"><i class="fa-solid fa-star"></i></button>
+          <button type="button" onclick="calificar(5)"><i class="fa-solid fa-star"></i></button>
+        </div>
+
+        <label class="form-label-bpm" for="descripcion">Descripci&oacute;n</label>
+        <textarea id="descripcion" class="description-box" placeholder="Escribe tu opini&oacute;n aqu&iacute;..."></textarea>
+
+        <p class="message" id="mensajePublicacion"></p>
+        <button class="main-btn" type="submit">Publicar</button>
+      </form>
+    </section>
+
+    <nav class="bottom-nav">
+      <a href="home.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="discover.html">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span>Navegar</span>
+      </a>
+      <a href="nuevaPublicacion.html" class="nav-plus active" aria-label="Nueva publicacion">
+        <i class="fa-solid fa-plus"></i>
+        <span>Crear</span>
+      </a>
+      <a href="chats.html">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>Chats</span>
+      </a>
+      <a href="perfilPersonal.html">
+        <i class="fa-solid fa-user"></i>
+        <span>Perfil</span>
+      </a>
+    </nav>
+  </main>
+
+  <script>
+    const pullToRefresh = document.querySelector('.pull-to-refresh');
+    let touchstartY = 0;
+    let rating = 5;
+
+    document.addEventListener('touchstart', function(e) {
+      touchstartY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      const touchY = e.touches[0].clientY;
+      const touchDiff = touchY - touchstartY;
+      if (touchDiff > 0 && window.scrollY === 0) {
+        pullToRefresh.classList.add('verse');
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('touchend', function() {
+      if (pullToRefresh.classList.contains('verse')) {
+        pullToRefresh.classList.remove('verse');
+        location.reload();
+      }
+    });
+
+    function mostrarSugerencias() {
+      var texto = document.getElementById('albumSearch').value;
+      var sugerencias = document.getElementById('suggestions');
+      if (texto.trim() !== '') {
+        sugerencias.classList.add('show');
+      } else {
+        sugerencias.classList.remove('show');
+      }
+    }
+
+    function elegirAlbum(imagen, titulo, artista) {
+      document.getElementById('selectedAlbum').innerHTML =
+        '<img src="' + imagen + '" alt="' + titulo + '">' +
+        '<div><h3>' + titulo + '</h3><p>' + artista + '</p><p>Recomendado</p></div>';
+      document.getElementById('albumSearch').value = '';
+      document.getElementById('suggestions').classList.remove('show');
+    }
+
+    function calificar(valor) {
+      var estrellas = document.getElementById('ratingStars').getElementsByTagName('button');
+      rating = valor;
+
+      for (var i = 0; i < estrellas.length; i++) {
+        if (i < valor) {
+          estrellas[i].innerHTML = '<i class="fa-solid fa-star"></i>';
+          estrellas[i].className = '';
+        } else {
+          estrellas[i].innerHTML = '<i class="fa-regular fa-star"></i>';
+          estrellas[i].className = 'off';
+        }
+      }
+    }
+
+    document.getElementById('publicacionForm').onsubmit = function(e) {
+      e.preventDefault();
+      var descripcion = document.getElementById('descripcion').value;
+      var mensaje = document.getElementById('mensajePublicacion');
+
+      if (descripcion.trim() === '') {
+        mensaje.innerHTML = 'Escribe una descripci&oacute;n antes de publicar.';
+      } else {
+        mensaje.innerHTML = 'Publicaci&oacute;n lista con ' + rating + ' estrellas.';
+        setTimeout(function() {
+          window.location.href = 'home.html';
+        }, 800);
+      }
+    };
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+    integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

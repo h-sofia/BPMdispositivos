@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BPM | Configuraci&oacute;n</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+  <main class="phone">
+    <section class="pull-to-refresh">
+      <div class="spinner-border" role="status"></div>
+    </section>
+
+    <section class="screen white-screen ig-settings-screen">
+      <header class="ig-settings-header">
+        <button class="ig-back-btn" type="button" id="mainBack" onclick="volverPerfil()" aria-label="Volver">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <h1 id="settingsTitle">Configuraci&oacute;n</h1>
+      </header>
+
+      <section class="ig-settings-home" id="settingsHome">
+        <div class="ig-settings-list">
+          <button class="ig-settings-item" type="button" onclick="abrirPanel('invitar')">
+            <i class="fa-solid fa-user-plus"></i>
+            <span>Seguir e invitar a amigos</span>
+          </button>
+
+          <button class="ig-settings-item" type="button" onclick="abrirPanel('notificaciones')">
+            <i class="fa-regular fa-bell"></i>
+            <span>Notificaciones</span>
+          </button>
+
+          <button class="ig-settings-item" type="button" onclick="abrirPanel('privacidad')">
+            <i class="fa-solid fa-lock"></i>
+            <span>Privacidad</span>
+          </button>
+
+          <button class="ig-settings-item" type="button" onclick="abrirPanel('seguridad')">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Seguridad</span>
+          </button>
+
+          <button class="ig-settings-item" type="button" onclick="abrirPanel('anuncios')">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span>Anuncios</span>
+          </button>
+
+          <button class="ig-settings-item" type="button" onclick="abrirPanel('cuenta')">
+            <i class="fa-regular fa-circle-user"></i>
+            <span>Cuenta</span>
+          </button>
+
+          <button class="ig-settings-item" type="button" onclick="abrirPanel('ayuda')">
+            <i class="fa-regular fa-circle-question"></i>
+            <span>Ayuda</span>
+          </button>
+
+          <button class="ig-settings-item" type="button" onclick="abrirPanel('informacion')">
+            <i class="fa-solid fa-info"></i>
+            <span>Informaci&oacute;n</span>
+          </button>
+        </div>
+
+        <section class="ig-login-section">
+          <h2>Inicios de sesi&oacute;n</h2>
+          <button type="button" onclick="mostrarAgregarCuenta()">A&ntilde;adir cuenta</button>
+          <button type="button" onclick="salirCuenta()">Salir</button>
+        </section>
+
+        <section class="ig-add-account" id="addAccountBox">
+          <label for="nuevoUsuario">Usuario</label>
+          <input type="text" id="nuevoUsuario" placeholder="@nuevo_usuario">
+          <label for="nuevoCorreo">Correo</label>
+          <input type="email" id="nuevoCorreo" placeholder="correo@bpm.com">
+          <button type="button" onclick="guardarCuentaNueva()">Guardar cuenta</button>
+        </section>
+
+        <p class="ig-settings-msg" id="homeMessage"></p>
+      </section>
+
+      <section class="ig-settings-detail" id="settingsDetail">
+        <div id="detailContent"></div>
+      </section>
+    </section>
+
+    <nav class="bottom-nav">
+      <a href="home.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="discover.html">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span>Navegar</span>
+      </a>
+      <a href="nuevaPublicacion.html" class="nav-plus" aria-label="Nueva publicacion">
+        <i class="fa-solid fa-plus"></i>
+        <span>Crear</span>
+      </a>
+      <a href="chats.html">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>Chats</span>
+      </a>
+      <a href="perfilPersonal.html" class="active">
+        <i class="fa-solid fa-user"></i>
+        <span>Perfil</span>
+      </a>
+    </nav>
+  </main>
+
+  <script>
+    const pullToRefresh = document.querySelector('.pull-to-refresh');
+    let touchstartY = 0;
+
+    document.addEventListener('touchstart', function(e) {
+      touchstartY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      const touchY = e.touches[0].clientY;
+      const touchDiff = touchY - touchstartY;
+      if (touchDiff > 0 && window.scrollY === 0) {
+        pullToRefresh.classList.add('verse');
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('touchend', function() {
+      if (pullToRefresh.classList.contains('verse')) {
+        pullToRefresh.classList.remove('verse');
+        location.reload();
+      }
+    });
+
+    const paneles = {
+      invitar: {
+        titulo: 'Seguir e invitar a amigos',
+        contenido:
+          '<p class="ig-detail-text">Invita a tus amigos para que compartan rese&ntilde;as y descubran albums contigo.</p>' +
+          '<label class="ig-field-label" for="inviteName">Nombre o correo</label>' +
+          '<input class="ig-field" type="text" id="inviteName" placeholder="amigo@correo.com">' +
+          '<button class="ig-action-btn" type="button" onclick="enviarInvitacion()">Enviar invitaci&oacute;n</button>' +
+          '<button class="ig-link-btn" type="button" onclick="copiarInvitacion()">Copiar enlace de invitaci&oacute;n</button>' +
+          '<p class="ig-settings-msg" id="detailMessage"></p>'
+      },
+      notificaciones: {
+        titulo: 'Notificaciones',
+        contenido:
+          '<div class="ig-switch-row"><span>Likes en mis rese&ntilde;as</span><input type="checkbox" id="notiLikes" checked></div>' +
+          '<div class="ig-switch-row"><span>Nuevos comentarios</span><input type="checkbox" id="notiComentarios" checked></div>' +
+          '<div class="ig-switch-row"><span>Albums recomendados</span><input type="checkbox" id="notiAlbums"></div>' +
+          '<button class="ig-action-btn" type="button" onclick="guardarNotificaciones()">Guardar cambios</button>' +
+          '<p class="ig-settings-msg" id="detailMessage"></p>'
+      },
+      privacidad: {
+        titulo: 'Privacidad',
+        contenido:
+          '<div class="ig-switch-row"><span>Cuenta privada</span><input type="checkbox" id="cuentaPrivada"></div>' +
+          '<div class="ig-switch-row"><span>Mostrar favoritos</span><input type="checkbox" id="mostrarFavoritos" checked></div>' +
+          '<div class="ig-switch-row"><span>Permitir mensajes</span><input type="checkbox" id="permitirMensajes" checked></div>' +
+          '<button class="ig-action-btn" type="button" onclick="guardarPrivacidad()">Guardar privacidad</button>' +
+          '<p class="ig-settings-msg" id="detailMessage"></p>'
+      },
+      seguridad: {
+        titulo: 'Seguridad',
+        contenido:
+          '<label class="ig-field-label" for="actualPass">Contrase&ntilde;a actual</label>' +
+          '<input class="ig-field" type="password" id="actualPass">' +
+          '<label class="ig-field-label" for="nuevaPass">Nueva contrase&ntilde;a</label>' +
+          '<input class="ig-field" type="password" id="nuevaPass">' +
+          '<label class="ig-field-label" for="confirmarPass">Confirmar contrase&ntilde;a</label>' +
+          '<input class="ig-field" type="password" id="confirmarPass">' +
+          '<button class="ig-action-btn" type="button" onclick="guardarSeguridad()">Actualizar contrase&ntilde;a</button>' +
+          '<p class="ig-settings-msg" id="detailMessage"></p>'
+      },
+      anuncios: {
+        titulo: 'Anuncios',
+        contenido:
+          '<p class="ig-detail-text">Elige los temas musicales que quieres ver en recomendaciones.</p>' +
+          '<div class="ig-chip-group">' +
+          '<button class="ig-chip active" type="button" onclick="toggleChip(this)">Pop</button>' +
+          '<button class="ig-chip" type="button" onclick="toggleChip(this)">Rap</button>' +
+          '<button class="ig-chip active" type="button" onclick="toggleChip(this)">Electronic</button>' +
+          '<button class="ig-chip" type="button" onclick="toggleChip(this)">Indie</button>' +
+          '</div>' +
+          '<button class="ig-action-btn" type="button" onclick="guardarAnuncios()">Guardar preferencias</button>' +
+          '<p class="ig-settings-msg" id="detailMessage"></p>'
+      },
+      cuenta: {
+        titulo: 'Cuenta',
+        contenido:
+          '<label class="ig-field-label" for="cuentaUsuario">Nombre de usuario</label>' +
+          '<input class="ig-field" type="text" id="cuentaUsuario" value="@xio666">' +
+          '<label class="ig-field-label" for="cuentaCorreo">Correo</label>' +
+          '<input class="ig-field" type="email" id="cuentaCorreo" value="xio@gmail.com">' +
+          '<label class="ig-field-label" for="cuentaBio">Bio</label>' +
+          '<textarea class="ig-field ig-area" id="cuentaBio">Tamo bello</textarea>' +
+          '<button class="ig-action-btn" type="button" onclick="guardarCuenta()">Guardar cuenta</button>' +
+          '<p class="ig-settings-msg" id="detailMessage"></p>'
+      },
+      ayuda: {
+        titulo: 'Ayuda',
+        contenido:
+          '<p class="ig-detail-text">Cu&eacute;ntanos qu&eacute; problema tienes con BPM.</p>' +
+          '<textarea class="ig-field ig-area" id="ayudaTexto" placeholder="Describe el problema"></textarea>' +
+          '<button class="ig-action-btn" type="button" onclick="enviarAyuda()">Enviar reporte</button>' +
+          '<button class="ig-link-btn" type="button" onclick="mostrarMensajeDetalle(\'Centro de ayuda abierto.\')">Centro de ayuda</button>' +
+          '<p class="ig-settings-msg" id="detailMessage"></p>'
+      },
+      informacion: {
+        titulo: 'Informaci&oacute;n',
+        contenido:
+          '<div class="ig-info-box"><strong>BPM</strong><span>Beats Per Minute</span><span>Versi&oacute;n estudiantil 1.0</span></div>' +
+          '<p class="ig-detail-text">Aplicaci&oacute;n para descubrir, rese&ntilde;ar y compartir albums.</p>' +
+          '<button class="ig-action-btn" type="button" onclick="mostrarMensajeDetalle(\'Informaci&oacute;n actualizada.\')">Verificar versi&oacute;n</button>' +
+          '<p class="ig-settings-msg" id="detailMessage"></p>'
+      }
+    };
+
+    function abrirPanel(nombre) {
+      document.getElementById('settingsHome').style.display = 'none';
+      document.getElementById('settingsDetail').style.display = 'block';
+      document.getElementById('settingsTitle').innerHTML = paneles[nombre].titulo;
+      document.getElementById('detailContent').innerHTML = paneles[nombre].contenido;
+      document.getElementById('mainBack').setAttribute('onclick', 'volverMenu()');
+    }
+
+    function volverMenu() {
+      document.getElementById('settingsHome').style.display = 'block';
+      document.getElementById('settingsDetail').style.display = 'none';
+      document.getElementById('settingsTitle').innerHTML = 'Configuraci&oacute;n';
+      document.getElementById('mainBack').setAttribute('onclick', 'volverPerfil()');
+      document.getElementById('homeMessage').innerHTML = '';
+    }
+
+    function volverPerfil() {
+      window.location.href = 'perfilPersonal.html';
+    }
+
+    function mostrarMensajeDetalle(texto) {
+      document.getElementById('detailMessage').innerHTML = texto;
+    }
+
+    function mostrarMensajeInicio(texto) {
+      document.getElementById('homeMessage').innerHTML = texto;
+    }
+
+    function enviarInvitacion() {
+      var nombre = document.getElementById('inviteName').value;
+      if (nombre.trim() === '') {
+        mostrarMensajeDetalle('Escribe un nombre o correo.');
+      } else {
+        mostrarMensajeDetalle('Invitaci&oacute;n enviada a ' + limpiarTexto(nombre) + '.');
+        document.getElementById('inviteName').value = '';
+      }
+    }
+
+    function copiarInvitacion() {
+      mostrarMensajeDetalle('Enlace copiado: bpm.app/invitar-xio666');
+    }
+
+    function guardarNotificaciones() {
+      mostrarMensajeDetalle('Preferencias de notificaciones guardadas.');
+    }
+
+    function guardarPrivacidad() {
+      var privada = document.getElementById('cuentaPrivada').checked;
+      if (privada) {
+        mostrarMensajeDetalle('Tu cuenta ahora es privada.');
+      } else {
+        mostrarMensajeDetalle('Tu cuenta ahora es p&uacute;blica.');
+      }
+    }
+
+    function guardarSeguridad() {
+      var actual = document.getElementById('actualPass').value;
+      var nueva = document.getElementById('nuevaPass').value;
+      var confirmar = document.getElementById('confirmarPass').value;
+
+      if (actual.trim() === '' || nueva.trim() === '' || confirmar.trim() === '') {
+        mostrarMensajeDetalle('Completa todos los campos.');
+      } else if (nueva !== confirmar) {
+        mostrarMensajeDetalle('Las contrase&ntilde;as no coinciden.');
+      } else {
+        mostrarMensajeDetalle('Contrase&ntilde;a actualizada.');
+      }
+    }
+
+    function toggleChip(boton) {
+      if (boton.className.indexOf('active') > -1) {
+        boton.className = boton.className.replace(' active', '');
+      } else {
+        boton.className += ' active';
+      }
+    }
+
+    function guardarAnuncios() {
+      mostrarMensajeDetalle('Preferencias de anuncios guardadas.');
+    }
+
+    function guardarCuenta() {
+      var usuario = document.getElementById('cuentaUsuario').value;
+      var correo = document.getElementById('cuentaCorreo').value;
+
+      if (usuario.trim() === '' || correo.trim() === '') {
+        mostrarMensajeDetalle('Usuario y correo son obligatorios.');
+      } else {
+        mostrarMensajeDetalle('Cuenta actualizada.');
+      }
+    }
+
+    function enviarAyuda() {
+      var texto = document.getElementById('ayudaTexto').value;
+      if (texto.trim() === '') {
+        mostrarMensajeDetalle('Escribe tu reporte primero.');
+      } else {
+        mostrarMensajeDetalle('Reporte enviado. Gracias por ayudar a mejorar BPM.');
+        document.getElementById('ayudaTexto').value = '';
+      }
+    }
+
+    function mostrarAgregarCuenta() {
+      var caja = document.getElementById('addAccountBox');
+      if (caja.style.display === 'block') {
+        caja.style.display = 'none';
+      } else {
+        caja.style.display = 'block';
+      }
+    }
+
+    function guardarCuentaNueva() {
+      var usuario = document.getElementById('nuevoUsuario').value;
+      var correo = document.getElementById('nuevoCorreo').value;
+
+      if (usuario.trim() === '' || correo.trim() === '') {
+        mostrarMensajeInicio('Completa usuario y correo.');
+      } else {
+        mostrarMensajeInicio('Cuenta agregada: ' + limpiarTexto(usuario) + '.');
+        document.getElementById('nuevoUsuario').value = '';
+        document.getElementById('nuevoCorreo').value = '';
+        document.getElementById('addAccountBox').style.display = 'none';
+      }
+    }
+
+    function salirCuenta() {
+      mostrarMensajeInicio('Sesi&oacute;n cerrada. Volviendo al inicio...');
+      setTimeout(function() {
+        window.location.href = 'logIn.html';
+      }, 900);
+    }
+
+    function limpiarTexto(texto) {
+      return texto.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+    integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

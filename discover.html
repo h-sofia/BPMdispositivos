@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BPM | Discover</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+  <main class="phone">
+    <section class="pull-to-refresh">
+      <div class="spinner-border" role="status"></div>
+    </section>
+
+    <section class="screen white-screen">
+      <header class="app-header">
+        <img src="img/BPM 2.png" class="app-logo" alt="BPM">
+        <a class="icon-btn" href="notificaciones.html" aria-label="Notificaciones">
+          <i class="fa-regular fa-bell"></i>
+        </a>
+      </header>
+
+      <div class="discover-content">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="buscar" aria-label="Buscar" placeholder="Text" onkeyup="buscarAlbumes()">
+        </div>
+
+        <div id="albumCarousel" class="carousel slide discover-carousel">
+          <div class="carousel-indicators">
+            <button type="button" onclick="mostrarSlide(0)" class="active"
+              aria-current="true" aria-label="Halo"></button>
+            <button type="button" onclick="mostrarSlide(1)"
+              aria-label="Imaginal Disk"></button>
+            <button type="button" onclick="mostrarSlide(2)"
+              aria-label="Good Kid"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="img/image 7.png" class="d-block w-100" alt="Halo">
+              <div class="carousel-caption">
+                <h2>Halo</h2>
+                <p>Tiffany Day</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="img/image 8.png" class="d-block w-100" alt="Imaginal Disk">
+              <div class="carousel-caption">
+                <h2>Imaginal Disk</h2>
+                <p>Magdalena Bay</p>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <img src="img/Money Trees 1.png" class="d-block w-100" alt="Good Kid">
+              <div class="carousel-caption">
+                <h2>Good Kid, M.A.A.D City</h2>
+                <p>Kendrick Lamar</p>
+              </div>
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" onclick="moverSlide(-1)">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+          </button>
+          <button class="carousel-control-next" type="button" onclick="moverSlide(1)">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+          </button>
+        </div>
+
+        <h1 class="section-title">La novedad en albums</h1>
+
+        <div class="discover-grid">
+          <article class="discover-card compact album-card">
+            <img src="img/image 7.png" class="album-cover" alt="Halo">
+            <div class="album-info">
+              <div class="d-flex align-items-start">
+                <div class="min-w-0">
+                  <h3>Halo</h3>
+                  <p>Tiffany Day</p>
+                </div>
+                <button class="icon-btn post-menu" type="button" aria-label="Opciones"
+                  onclick="abrirOpcionesPublicacion(this, 'tercero')">
+                  <i class="fa-solid fa-ellipsis"></i>
+                </button>
+              </div>
+              <div class="stars">
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+              </div>
+              <h2 class="post-review-title">Tiffany Day: Rese&ntilde;a del &aacute;lbum HALO 6.9</h2>
+              <p class="post-text">Day empez&oacute; como artista de bedroom-pop, y HALO marca un giro hacia la m&uacute;sica.</p>
+              <div class="genre-tags">
+                <span>Hyperpop</span>
+                <span>Electronic</span>
+              </div>
+              <div class="post-actions">
+                <button type="button" onclick="toggleLike(this)" aria-label="Me gusta">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+                <a href="chats.html" aria-label="Comentar"><i class="fa-regular fa-comment"></i></a>
+                <a href="perfilDeTercer.html" aria-label="Perfil"><i class="fa-regular fa-user"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="discover-card compact album-card">
+            <img src="img/image 8.png" class="album-cover" alt="Imaginal Disk">
+            <div class="album-info">
+              <div class="d-flex align-items-start">
+                <div class="min-w-0">
+                  <h3>Imaginal Disk</h3>
+                  <p>Magdalena Bay</p>
+                </div>
+                <button class="icon-btn post-menu" type="button" aria-label="Opciones"
+                  onclick="abrirOpcionesPublicacion(this, 'tercero')">
+                  <i class="fa-solid fa-ellipsis"></i>
+                </button>
+              </div>
+              <div class="stars">
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+                <button type="button" class="off"><i class="fa-regular fa-star"></i></button>
+              </div>
+              <h2 class="post-review-title">Tiffany Day: Rese&ntilde;a del &aacute;lbum HALO 6.9</h2>
+              <p class="post-text">Un sonido colorido que mezcla pop, sintetizadores y letras muy visuales.</p>
+              <div class="genre-tags">
+                <span>Pop</span>
+                <span>Electronic</span>
+              </div>
+              <div class="post-actions">
+                <button type="button" onclick="toggleLike(this)" aria-label="Me gusta">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+                <a href="chats.html" aria-label="Comentar"><i class="fa-regular fa-comment"></i></a>
+                <a href="perfilDeTercer.html" aria-label="Perfil"><i class="fa-regular fa-user"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <article class="discover-card compact album-card">
+            <img src="img/Money Trees 1.png" class="album-cover" alt="Good Kid">
+            <div class="album-info">
+              <div class="d-flex align-items-start">
+                <div class="min-w-0">
+                  <h3>Good Kid, M.A.A...</h3>
+                  <p>Kendrick Lamar</p>
+                </div>
+                <button class="icon-btn post-menu" type="button" aria-label="Opciones"
+                  onclick="abrirOpcionesPublicacion(this, 'tercero')">
+                  <i class="fa-solid fa-ellipsis"></i>
+                </button>
+              </div>
+              <div class="stars">
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+                <button type="button"><i class="fa-solid fa-star"></i></button>
+              </div>
+              <h2 class="post-review-title">Tiffany Day: Rese&ntilde;a del &aacute;lbum HALO 6.9</h2>
+              <p class="post-text">Rap narrativo, directo y muy cinematogr&aacute;fico.</p>
+              <div class="genre-tags">
+                <span>Rap</span>
+                <span>Hip-hop</span>
+              </div>
+              <div class="post-actions">
+                <button type="button" onclick="toggleLike(this)" aria-label="Me gusta">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+                <a href="chats.html" aria-label="Comentar"><i class="fa-regular fa-comment"></i></a>
+                <a href="perfilDeTercer.html" aria-label="Perfil"><i class="fa-regular fa-user"></i></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="post-options-overlay" id="postOptionsOverlay">
+      <div class="post-options-backdrop" onclick="cerrarOpcionesPublicacion()"></div>
+      <div class="post-options-sheet">
+        <div class="sheet-handle"></div>
+        <div class="post-options-group" id="postOptionsContent"></div>
+        <p class="post-options-message" id="postOptionsMessage"></p>
+      </div>
+    </section>
+
+    <nav class="bottom-nav">
+      <a href="home.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="discover.html" class="active">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span>Navegar</span>
+      </a>
+      <a href="nuevaPublicacion.html" class="nav-plus" aria-label="Nueva publicacion">
+        <i class="fa-solid fa-plus"></i>
+        <span>Crear</span>
+      </a>
+      <a href="chats.html">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>Chats</span>
+      </a>
+      <a href="perfilPersonal.html">
+        <i class="fa-solid fa-user"></i>
+        <span>Perfil</span>
+      </a>
+    </nav>
+  </main>
+
+  <script>
+    const pullToRefresh = document.querySelector('.pull-to-refresh');
+    let touchstartY = 0;
+
+    document.addEventListener('touchstart', function(e) {
+      touchstartY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      const touchY = e.touches[0].clientY;
+      const touchDiff = touchY - touchstartY;
+      if (touchDiff > 0 && window.scrollY === 0) {
+        pullToRefresh.classList.add('verse');
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('touchend', function() {
+      if (pullToRefresh.classList.contains('verse')) {
+        pullToRefresh.classList.remove('verse');
+        location.reload();
+      }
+    });
+
+    function buscarAlbumes() {
+      var texto = document.getElementById('buscar').value.toLowerCase();
+      var tarjetas = document.getElementsByClassName('album-card');
+
+      for (var i = 0; i < tarjetas.length; i++) {
+        if (tarjetas[i].innerText.toLowerCase().indexOf(texto) > -1) {
+          tarjetas[i].style.display = 'grid';
+        } else {
+          tarjetas[i].style.display = 'none';
+        }
+      }
+    }
+
+    function toggleLike(boton) {
+      if (boton.className.indexOf('liked') > -1) {
+        boton.className = boton.className.replace(' liked', '');
+        boton.innerHTML = '<i class="fa-regular fa-heart"></i>';
+      } else {
+        boton.className += ' liked';
+        boton.innerHTML = '<i class="fa-solid fa-heart"></i>';
+      }
+    }
+
+    var postSeleccionado = null;
+
+    function abrirOpcionesPublicacion(boton, tipo) {
+      postSeleccionado = boton.closest('.post-card') || boton.closest('.discover-card');
+      var contenedor = document.getElementById('postOptionsContent');
+      var mensaje = document.getElementById('postOptionsMessage');
+
+      mensaje.innerHTML = '';
+
+      if (tipo === 'propia') {
+        contenedor.innerHTML =
+          '<button class="post-option-item" type="button" onclick="accionPublicacionPropia(\'archivar\')"><i class="fa-solid fa-clock-rotate-left"></i><span>Archivar</span></button>' +
+          '<button class="post-option-item" type="button" onclick="accionPublicacionPropia(\'likes\')"><i class="fa-regular fa-heart"></i><span>Ocultar recuento de Me gusta</span></button>' +
+          '<button class="post-option-item" type="button" onclick="accionPublicacionPropia(\'compartido\')"><i class="fa-regular fa-paper-plane"></i><span>Ocultar veces que se comparti&oacute;</span></button>' +
+          '<button class="post-option-item" type="button" onclick="accionPublicacionPropia(\'comentarios\')"><i class="fa-solid fa-comment-slash"></i><span>Desactivar comentarios</span></button>' +
+          '<button class="post-option-item" type="button" onclick="accionPublicacionPropia(\'editar\')"><i class="fa-regular fa-pen-to-square"></i><span>Editar</span></button>' +
+          '<button class="post-option-item danger" type="button" onclick="accionPublicacionPropia(\'eliminar\')"><i class="fa-regular fa-trash-can"></i><span>Eliminar</span></button>';
+      } else {
+        contenedor.innerHTML =
+          '<button class="post-option-item" type="button" onclick="accionPublicacionTercero(\'seguir\')"><i class="fa-solid fa-user-minus"></i><span>Dejar de seguir</span></button>' +
+          '<button class="post-option-item" type="button" onclick="accionPublicacionTercero(\'porque\')"><i class="fa-solid fa-circle-info"></i><span>Por qu&eacute; ves esta publicaci&oacute;n</span></button>' +
+          '<button class="post-option-item" type="button" onclick="accionPublicacionTercero(\'ocultar\')"><i class="fa-regular fa-eye-slash"></i><span>Ocultar</span></button>' +
+          '<button class="post-option-item danger" type="button" onclick="accionPublicacionTercero(\'reportar\')"><i class="fa-regular fa-message"></i><span>Reportar</span></button>';
+      }
+
+      document.getElementById('postOptionsOverlay').classList.add('show');
+    }
+
+    function cerrarOpcionesPublicacion() {
+      document.getElementById('postOptionsOverlay').classList.remove('show');
+    }
+
+    function mostrarMensajeOpciones(texto) {
+      document.getElementById('postOptionsMessage').innerHTML = texto;
+    }
+
+    function accionPublicacionPropia(accion) {
+      if (!postSeleccionado) {
+        return;
+      }
+
+      if (accion === 'archivar') {
+        postSeleccionado.style.display = 'none';
+        mostrarMensajeOpciones('Publicaci&oacute;n archivada.');
+        setTimeout(cerrarOpcionesPublicacion, 700);
+      } else if (accion === 'likes') {
+        mostrarMensajeOpciones('Recuento de Me gusta oculto.');
+      } else if (accion === 'compartido') {
+        mostrarMensajeOpciones('Veces compartida ocultas.');
+      } else if (accion === 'comentarios') {
+        var comentarios = postSeleccionado.getElementsByClassName('comment-panel')[0];
+        if (comentarios) {
+          comentarios.style.display = 'none';
+        }
+        mostrarMensajeOpciones('Comentarios desactivados.');
+      } else if (accion === 'editar') {
+        window.location.href = 'editarPublicacion.html';
+      } else if (accion === 'eliminar') {
+        postSeleccionado.remove();
+        mostrarMensajeOpciones('Publicaci&oacute;n eliminada.');
+        setTimeout(cerrarOpcionesPublicacion, 700);
+      }
+    }
+
+    function accionPublicacionTercero(accion) {
+      if (!postSeleccionado) {
+        return;
+      }
+
+      if (accion === 'seguir') {
+        mostrarMensajeOpciones('Dejaste de seguir a este usuario.');
+      } else if (accion === 'porque') {
+        mostrarMensajeOpciones('La ves porque escuchas artistas y g&eacute;neros parecidos.');
+      } else if (accion === 'ocultar') {
+        postSeleccionado.style.display = 'none';
+        mostrarMensajeOpciones('Publicaci&oacute;n oculta.');
+        setTimeout(cerrarOpcionesPublicacion, 700);
+      } else if (accion === 'reportar') {
+        mostrarMensajeOpciones('Reporte enviado para revisi&oacute;n.');
+      }
+    }
+
+    var slideActual = 0;
+
+    function mostrarSlide(numero) {
+      var slides = document.querySelectorAll('#albumCarousel .carousel-item');
+      var indicadores = document.querySelectorAll('#albumCarousel .carousel-indicators button');
+
+      if (numero >= slides.length) {
+        slideActual = 0;
+      } else if (numero < 0) {
+        slideActual = slides.length - 1;
+      } else {
+        slideActual = numero;
+      }
+
+      for (var i = 0; i < slides.length; i++) {
+        slides[i].classList.remove('active');
+        indicadores[i].classList.remove('active');
+        indicadores[i].removeAttribute('aria-current');
+      }
+
+      slides[slideActual].classList.add('active');
+      indicadores[slideActual].classList.add('active');
+      indicadores[slideActual].setAttribute('aria-current', 'true');
+    }
+
+    function moverSlide(direccion) {
+      mostrarSlide(slideActual + direccion);
+    }
+
+    setInterval(function() {
+      moverSlide(1);
+    }, 4500);
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+    integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BPM | Editar publicaci&oacute;n</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+  <main class="phone">
+    <section class="pull-to-refresh">
+      <div class="spinner-border" role="status"></div>
+    </section>
+
+    <section class="screen red-screen">
+      <header class="app-header red">
+        <a class="icon-btn" href="perfilPersonal.html" aria-label="Volver">
+          <i class="fa-solid fa-chevron-left"></i>
+        </a>
+        <h1 class="page-title">Editar publicaci&oacute;n</h1>
+        <button class="icon-btn" type="button" onclick="eliminarPublicacion()" aria-label="Eliminar">
+          <i class="fa-regular fa-trash-can"></i>
+        </button>
+      </header>
+
+      <form class="red-form" id="editarForm">
+        <label class="form-label-bpm">Album</label>
+        <div class="selected-album">
+          <img src="img/image 8.png" alt="Imaginal Disk">
+          <div>
+            <h3>Imaginal Disk</h3>
+            <p>Magdalena Bay</p>
+            <p>Pop - Electronic</p>
+          </div>
+        </div>
+
+        <label class="form-label-bpm">Calificaci&oacute;n</label>
+        <div class="star-row" id="ratingStars">
+          <button type="button" onclick="calificar(1)"><i class="fa-solid fa-star"></i></button>
+          <button type="button" onclick="calificar(2)"><i class="fa-solid fa-star"></i></button>
+          <button type="button" onclick="calificar(3)"><i class="fa-solid fa-star"></i></button>
+          <button type="button" onclick="calificar(4)"><i class="fa-solid fa-star"></i></button>
+          <button type="button" onclick="calificar(5)"><i class="fa-regular fa-star"></i></button>
+        </div>
+
+        <label class="form-label-bpm" for="descripcion">Descripci&oacute;n</label>
+        <textarea id="descripcion" class="description-box">Este &aacute;lbum tiene una producci&oacute;n muy brillante y canciones que se sienten como escenas.</textarea>
+
+        <p class="message" id="editarMensaje"></p>
+        <button class="main-btn" type="submit">Guardar</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const pullToRefresh = document.querySelector('.pull-to-refresh');
+    let touchstartY = 0;
+    let rating = 4;
+
+    document.addEventListener('touchstart', function(e) {
+      touchstartY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      const touchY = e.touches[0].clientY;
+      const touchDiff = touchY - touchstartY;
+      if (touchDiff > 0 && window.scrollY === 0) {
+        pullToRefresh.classList.add('verse');
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('touchend', function() {
+      if (pullToRefresh.classList.contains('verse')) {
+        pullToRefresh.classList.remove('verse');
+        location.reload();
+      }
+    });
+
+    function calificar(valor) {
+      var estrellas = document.getElementById('ratingStars').getElementsByTagName('button');
+      rating = valor;
+
+      for (var i = 0; i < estrellas.length; i++) {
+        if (i < valor) {
+          estrellas[i].innerHTML = '<i class="fa-solid fa-star"></i>';
+          estrellas[i].className = '';
+        } else {
+          estrellas[i].innerHTML = '<i class="fa-regular fa-star"></i>';
+          estrellas[i].className = 'off';
+        }
+      }
+    }
+
+    document.getElementById('editarForm').onsubmit = function(e) {
+      e.preventDefault();
+      var descripcion = document.getElementById('descripcion').value;
+      var mensaje = document.getElementById('editarMensaje');
+
+      if (descripcion.trim() === '') {
+        mensaje.innerHTML = 'La descripci&oacute;n no puede quedar vac&iacute;a.';
+      } else {
+        mensaje.innerHTML = 'Publicaci&oacute;n guardada con ' + rating + ' estrellas.';
+      }
+    };
+
+    function eliminarPublicacion() {
+      var mensaje = document.getElementById('editarMensaje');
+      mensaje.innerHTML = 'Publicaci&oacute;n eliminada.';
+      setTimeout(function() {
+        window.location.href = 'perfilPersonal.html';
+      }, 800);
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+    integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

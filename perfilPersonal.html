@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BPM | Perfil personal</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+  <main class="phone">
+    <section class="pull-to-refresh">
+      <div class="spinner-border" role="status"></div>
+    </section>
+
+    <section class="screen white-screen">
+      <header class="profile-hero">
+        <div class="profile-top">
+          <img src="img/image 9.png" class="profile-photo" alt="Xio">
+          <div>
+            <h1 class="profile-name">Xio</h1>
+            <p class="profile-user">@xio666</p>
+            <div class="profile-stats">
+              <span>Seguidorxs 15</span>
+              <span>Seguidxs 17</span>
+            </div>
+          </div>
+          <a class="icon-btn" href="configuraciones.html" aria-label="Configuracion">
+            <i class="fa-solid fa-gear"></i>
+          </a>
+        </div>
+      </header>
+
+      <div class="page-content">
+        <h2 class="section-title small">Favoritos</h2>
+        <div class="album-strip">
+          <img src="img/image 8.png" alt="Imaginal Disk">
+          <img src="img/Rectangle 61.png" alt="Brat">
+          <img src="img/image 11.png" alt="Album favorito">
+          <img src="img/image 12.png" alt="Album favorito">
+        </div>
+
+        <h2 class="section-title small">Reciente</h2>
+        <div class="recent-list">
+          <article class="recent-item">
+            <img src="img/image 14.png" alt="What you sleep">
+            <div>
+              <h3>What you sleep</h3>
+              <p>Malcolm Todd</p>
+              <div class="mini-stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+              </div>
+            </div>
+            <a class="edit-btn" href="editarPublicacion.html" aria-label="Editar">
+              <i class="fa-solid fa-pencil"></i>
+            </a>
+          </article>
+
+          <article class="recent-item">
+            <img src="img/image 15.png" alt="Siamese Dream">
+            <div>
+              <h3>Siamese Dream</h3>
+              <p>The Smashing Pumpkins</p>
+              <div class="mini-stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+              </div>
+            </div>
+            <a class="edit-btn" href="editarPublicacion.html" aria-label="Editar">
+              <i class="fa-solid fa-pencil"></i>
+            </a>
+          </article>
+
+          <article class="recent-item">
+            <img src="img/image 17.png" alt="When the pawn">
+            <div>
+              <h3>When the pawn...</h3>
+              <p>Fiona Apple</p>
+              <div class="mini-stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+              </div>
+            </div>
+            <a class="edit-btn" href="editarPublicacion.html" aria-label="Editar">
+              <i class="fa-solid fa-pencil"></i>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <nav class="bottom-nav">
+      <a href="home.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+      </a>
+      <a href="discover.html">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <span>Navegar</span>
+      </a>
+      <a href="nuevaPublicacion.html" class="nav-plus" aria-label="Nueva publicacion">
+        <i class="fa-solid fa-plus"></i>
+        <span>Crear</span>
+      </a>
+      <a href="chats.html">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>Chats</span>
+      </a>
+      <a href="perfilPersonal.html" class="active">
+        <i class="fa-solid fa-user"></i>
+        <span>Perfil</span>
+      </a>
+    </nav>
+  </main>
+
+  <script>
+    const pullToRefresh = document.querySelector('.pull-to-refresh');
+    let touchstartY = 0;
+
+    document.addEventListener('touchstart', function(e) {
+      touchstartY = e.touches[0].clientY;
+    });
+
+    document.addEventListener('touchmove', function(e) {
+      const touchY = e.touches[0].clientY;
+      const touchDiff = touchY - touchstartY;
+      if (touchDiff > 0 && window.scrollY === 0) {
+        pullToRefresh.classList.add('verse');
+        e.preventDefault();
+      }
+    });
+
+    document.addEventListener('touchend', function() {
+      if (pullToRefresh.classList.contains('verse')) {
+        pullToRefresh.classList.remove('verse');
+        location.reload();
+      }
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+    integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
